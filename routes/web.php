@@ -18,6 +18,8 @@ Route::get('/showall','ControllerPages@show');
 Route::post('/pagesstore','ControllerPages@store');
 Route::get('/delete/{id}','ControllerPages@delete');
 //----------------------------------------------------------
-Route::get('/shownoteforpage/{page}','ControllerPages@onepage');
-Route::post('/notestore/{page}','ControllerPages@storenote');
+Route::get('/shownoteforpage/{id}','ControllerPages@onepage');
+Route::get('/updatenoteview/{idp}/{idn}','ControllerPages@updatenoteview');
+Route::post('/update/{idp}/{idn}','ControllerPages@update');
+Route::post('/notestore/{id}','ControllerPages@storenote');
 

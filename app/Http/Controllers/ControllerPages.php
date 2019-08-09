@@ -7,6 +7,7 @@ use App\Page as pages;
 use App\Page;
 
 use Illuminate\Http\Request;
+use function Sodium\compare;
 
 
 class ControllerPages extends Controller
@@ -21,8 +22,15 @@ class ControllerPages extends Controller
         $objPage->save();
         return back();
     }
-    public function delete(pages $id){
-        $id->delete();
+//    public function delete(pages $id){
+//        $id->delete();
+//        return back();
+//
+//
+//
+//    }
+    public function delete($id){
+        pages::find($id)->delete();
         return back();
 
 
@@ -56,18 +64,63 @@ class ControllerPages extends Controller
 //
 //           return view('onepage',compact('page_name','notes','none'));}
 //        }
-public function onepage(Page $page){
+//public function onepage(Page $page){
+//
+//        return view('onepage',compact('page'));
+//}
+    public function onepage($id){
+       $page= pages::find($id);
 
         return view('onepage',compact('page'));
-}
-        public function storenote(Request $request,Page $page){
+    }
+//        public function storenote(Request $request,Page $page){
+//        $obj = new Note;
+//        $obj->text = $request->text;
+//
+//        $page->notes()->save($obj);
+//
+//        return back();
+//        }
+    public function storenote(Request $request,$id){
+      $page=  pages::find($id);
         $obj = new Note;
         $obj->text = $request->text;
 
         $page->notes()->save($obj);
 
         return back();
-        }
+    }
+    public function updatenoteview($idp,$idn){
+        $page = pages::find($idp);
+     $note = $page->notes->where('id',$idn);
+     $noteid=0;$notetitle="";
+
+     foreach ($note as $not){
+         $noteid = $not->id;
+         $notetext = $not->text;
+
+     }
+
+        return view('update',compact('noteid','notetext','page'));
+    }
+
+    public function update(Request $request,$idp,$idn){
+        $page = pages::find($idp);
+
+        $note = $page->notes->where('id',$idn);
+        $note->text = $request->text;
+
+       $page->notes()->save($note);
+
+
+//
+//        $page->notes()->save($note);
+}
+
+
+
+
+
 
 
 

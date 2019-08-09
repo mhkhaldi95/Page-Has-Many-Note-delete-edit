@@ -37,8 +37,9 @@
                 {{$note->text}}
             </div>
             <div class="col-xs-4">
-                <button type="button" class="btn btn-danger pull-right">Delete</button>
-                <button type="button" class="btn btn-default pull-right">Edit</button>
+                <div><a href="/delete/{{$page->id}}/{{$note->id}}" class="btn btn-danger pull-right">Delete</a> </div>
+                <div><a href="/updatenoteview/{{$page->id}}/{{$note->id}}" class="btn btn-danger pull-right">update</a> </div>
+
             </div>
         </div>
     @endforeach
